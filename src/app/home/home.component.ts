@@ -56,7 +56,7 @@ view: any[] = [700, 400];
   }
   changeSelectedMovie(movie: Movie) {
     this.slectedMovie = movie;
-    this.data.value=movie.vote_average;
+    // this.data.value=movie.vote_average;
   }
   assignCopy(){
    this.filteredItems = Object.assign([], this.movies);

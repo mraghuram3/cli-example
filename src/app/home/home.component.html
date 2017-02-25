@@ -1,0 +1,59 @@
+
+<md-input #myInput placeholder="Item name..." [(ngModel)]="name" (keyup)="filterItem(myInput.value)"></md-input>
+<md-grid-list cols="6" rowHeight="400px">
+  <md-grid-tile
+      *ngFor="let m of movies | paginate: { itemsPerPage: 4, currentPage: p };let i = index"
+      [colspan]="3" 
+      [rowspan]="1" >
+   <md-card class="example-card">
+  <md-card-header>
+    <div md-card-avatar class="example-header-image"></div>
+    <md-card-title>{{m.title}}</md-card-title>  
+  </md-card-header>
+  <img md-card-image class="poster" src="assets/img/examples/shiba2.jpg" [lazyLoad]="m.poster_path" style="width: 185px;height: 278px;" >
+  <md-card-content>
+    <p>
+      {{m.overview}}
+    </p>
+  </md-card-content>
+  <md-card-actions>
+    <button md-button (click)="changeSelectedMovie(m)" >More Info</button>
+  </md-card-actions>
+</md-card>
+  </md-grid-tile>
+  
+  <!--{{movies | json}}-->
+</md-grid-list>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+ 
+  
+<div class="modal fade" bsModal #movieModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Static modal</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="movieModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{slectedMovie.title}}
+          <ngx-charts-gauge
+      [view]="view"
+      [scheme]="colorScheme"
+      [results]="data"
+      [min]="0"
+      [max]="10"
+      [angleSpan]="360"
+      [startAngle]="0"
+      [units]="'progress'"
+      [bigSegments]="0"
+      [smallSegments]="0"
+      (select)="onSelect($event)">
+    </ngx-charts-gauge>
+      </div>
+    </div>
+  </div>
+</div>
